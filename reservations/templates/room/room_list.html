@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" data-target="#exampleModal">
+    Add new Room
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add new room</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form method="POST">
+        <div class="modal-body">
+            
+                {% csrf_token %}
+                {{form|crispy}}
+                
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    </div>
+</div>
+</div>
+{% for message in messages  %}
+    <div class="alert alert-primary alert-dismissible fade show mt-3" role="alert">
+        {{message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endfor %}
+<div class="card">
+    <div class="card-header">
+        Standard Room
+    </div>
+    <div class="card-body" style="font-size: 11px;">
+        <div class="row">
+            {% for list in room %}
+            {% if list.room_type == 'Standard Room' %}
+            {% include "../room/room_delete_modal.html" %}
+            {% if list.available == True %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                <div class="card text-center shadow">
+                    <div class="card-header">Room {{ list.room_no }}
+                    </div>
+                        <div class="card-body" style="background-color: #4fc3f7;">
+                            <h7 class="text-white">Available</h7>
+                        </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                <div class="card text-center shadow">
+                    <div class="card-header">Room {{list.room_no}}</div>
+                    <div class="card-body" style="background-color: #ef5350;">
+                        <h7 class="text-white">Not Available</h7>
+                    </div>
+                    
+                </div>
+            </div>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    
+    
+</div>
+
+<br>
+
+<div class="card">
+    <div class="card-header">
+        Deluxe Room
+    </div>
+    <div class="card-body" style="font-size: 11px;">
+        <div class="row">
+    {% for list in room %}
+        {% if list.room_type == 'Deluxe Room' %}
+            {% if list.available == True %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                <div class="card text-center shadow">
+                    <div class="card-header">Room {{ list.room_no }}
+                    </div>
+                        <div class="card-body" style="background-color: #4fc3f7;">
+                            <h7 class="text-white">Available</h7>
+                        </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                <div class="card text-center shadow">
+                    <div class="card-header">Room {{list.room_no}}</div>
+                    <div class="card-body" style="background-color: #ef5350;">
+                        <h7 class="text-white">Not Available</h7>
+                    </div>
+                    
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="card">
+    <div class="card-header">
+        VIP Room
+    </div>
+    <div class="card-body" style="font-size: 11px;">
+        <div class="row">
+    {% for list in room %}
+        {% if list.room_type == 'VIP Room' %}
+        {% include "../room/room_delete_modal.html" %}
+            {% if list.available == True %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                <div class="card text-center shadow">
+                    <div class="card-header">Room {{ list.room_no }}
+                    </div>
+                        <div class="card-body" style="background-color: #4fc3f7;">
+                            <h7 class="text-white">Available</h7>
+                        </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                <div class="card text-center shadow">
+                    <div class="card-header">Room {{list.room_no}}</div>
+                    <div class="card-body" style="background-color: #ef5350;">
+                        <h7 class="text-white">Not Available</h7>
+                    </div>
+                    
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-deck">
+                <div class="card shadow">
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                    <div class="card-body">
+                        <h5 class="card-title">View Reservations</h5>
+                        <a href="{% url 'reservations:reservations_list' %}" class="btn btn-primary btn-sm">Click here -----></a>
+                    </div>
+                </div>
+
+                <div class="card shadow">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
+                        <div class="card-body">
+                            <h5 class="card-title">Create Reservations</h5>
+                            <a href="{% url 'reservations:create_reservations' %}" class="btn btn-primary btn-sm">Click here -----></a>
+                        </div>
+                </div>
+
+                <div class="card shadow">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
+                        <div class="card-body">
+                            <h5 class="card-title">View Available Rooms</h5>
+                            <a href="{% url 'reservations:room_list' %}" class="btn btn-primary btn-sm">Click here -----></a>
+                        </div>
+                </div>
+                
+            </div>
+        
+        </div>
+    </div>
+</div>
+{% endblock  %}

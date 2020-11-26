@@ -1,0 +1,34 @@
+
+  <!-- Sidebar  -->
+  <nav id="sidebar">
+    
+
+    <ul class="list-unstyled components">
+        <p class="text-center">LYF<br>Hotel Management System</p>
+        <p></p>
+        <li>
+            <a href="{% url 'reservations:homepage' %}">Home</a>
+        </li>
+        <li>
+            <a href="#AppointmentMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reservations</a>
+            <ul class="collapse list-unstyled" id="AppointmentMenu">
+                <li>
+                    <a href="{% url 'reservations:create_reservations' %}">Create Reservations</a>
+                </li>
+                <li>
+                    <a href="{% url 'reservations:reservations_list' %}">View Reservations</a>
+                </li>
+                <li>
+                    <a href="{% url 'reservations:room_list' %}">Available Rooms</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="">About</a>
+        </li>
+        <li>
+            <a href="">Contact US</a>
+        </li>
+        
+    </ul>
+</nav>

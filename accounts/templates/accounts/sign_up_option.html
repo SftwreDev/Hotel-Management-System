@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+
+      <div class="col-sm"></div>
+
+      <div class="col-sm">
+          <div class="card text-center" style="width: 30rem;">
+
+            <div class="card-body">
+                <h4>Choose role for creating user's account</h4>
+                <hr>
+                <table class="table table-borderless text-center">
+                <thead>
+                  <tr>
+                    <th scope="col"><a href="{% url 'accounts:employee_signup' %}" class="btn btn-primary btn-sm">Employee</a></th>
+                    <th scope="col"><a href="{% url 'accounts:manager_signup' %}" class="btn btn-success btn-sm">Manager</a></th>
+                  </tr>
+                </thead>
+                </table>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-sm"></div>
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+  
+      
+<div class="col-md-6">
+  <div class="card" style="margin-top: 1rem;  margin-bottom: 3rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.28);">
+    <div class="card-body" style="font-size: 13px;">
+      <h5 class="card-title">Create your account</h5>
+      <p class="card-text">
+        <form method="post" novalidate>
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ next }}">
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-success btn-block btn-sm">Sign up</button>
+        </form>
+        
+    </p>
+    </div>
+  </div>
+</div>
+
+
+  
+{% endblock %}
