@@ -8,35 +8,40 @@ from .models import User, Customer, Personnel, Administrator
 class CustomerSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        # fields = ['username', 'email' , 'password1', 'password2']
+        fields = ['username', 'email' , 'password1', 'password2']
 
-    @transaction.atomic
-    def save(self):
+
+    def save(self, commit=True):
         user = super().save(commit=False)
         user.is_customer = True
-        user.save()
+        if commit:
+            user.save()
         return user
 
 
 class PersonnelSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        # fields = ['username', 'email' , 'password1', 'password2']
+        fields = ['username', 'email' , 'password1', 'password2']
 
+    
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.is_personnel = True
-        user.save()
+        user.is_personel = True
+        if commit:
+            user.save()
         return user
 
 
 class AdministratorSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        # fields = ['username', 'email' , 'password1', 'password2']
+        fields = ['username', 'email' , 'password1', 'password2']
+
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.is_admin = True
-        user.save()
+        user.is_administrator = True
+        if commit:
+            user.save()
         return user

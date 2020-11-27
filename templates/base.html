@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 
 <head>
@@ -212,7 +213,7 @@ a.article:hover {
 <body>
 
     <div class="wrapper">
-        {% if user.is_customer or user.is_personnel %}
+        {% if user.is_customer or user.is_personnel or user.is_authenticated or user.is_admin %}
         <!-- Sidebar  -->
         {% block sidebar %}
             {% include "sidebar.html" %}
@@ -239,7 +240,10 @@ a.article:hover {
                                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                             </li>
                             <li class="nav-item py-0">
-                                <a class="nav-link" href="#">Options</a>
+                                <a class="nav-link" href="">|</a>
+                            </li>
+                            <li class="nav-item py-0">
+                                <a class="nav-link" href="#">Logged In as {{request.user}}</a>
                             </li>
                             
                         </ul>
@@ -258,6 +262,17 @@ a.article:hover {
 
             </div>
     </div>
+
+    {% block scripts %}
+    <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!-- You can alternatively load the minified version -->
+    <script src="{% static 'assets/js/jquery.bootstrap.modal.forms.js' %}"></script>
+    {% endblock scripts %}
+
+    {% block extrascripts %}{% endblock extrascripts %}
+
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

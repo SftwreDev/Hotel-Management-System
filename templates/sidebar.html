@@ -5,7 +5,7 @@
 
     <ul class="list-unstyled components">
         <p class="text-center">LYF<br>Hotel Management System</p>
-        <p></p>
+        <br>
         <li>
             <a href="{% url 'reservations:homepage' %}">Home</a>
         </li>
@@ -29,6 +29,13 @@
         <li>
             <a href="">Contact US</a>
         </li>
-        
+        {% if user.is_administrator %}
+        <p style="font-size: 12px;">Logged in as Administrator</p>
+        {% elif user.is_personel %}
+        <p style="font-size: 12px;">Logged in as Personnel</p>
+        {% elif user.is_customer %}
+        <p style="font-size: 12px;">Logged in as Customer</p>
+        {% endif %}
     </ul>
+    
 </nav>

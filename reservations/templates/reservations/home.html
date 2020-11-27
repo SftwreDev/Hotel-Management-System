@@ -4,34 +4,104 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-body">
-            <div class="card-deck">
-                <div class="card shadow">
-                <!-- <img src="..." class="card-img-top" alt="..."> -->
-                    <div class="card-body">
-                        <h5 class="card-title">View Reservations</h5>
-                        <a href="{% url 'reservations:reservations_list' %}" class="btn btn-primary btn-sm">Click here -----></a>
+            <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <div class="card shadow">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
+                        <div class="card-body">
+                            <h5 class="card-title">View Reservations</h5>
+                            {% if user.is_customer %}
+                            <a href="{% url 'reservations:reservations_list' %}" class="btn btn-primary btn-sm">Click here -----></a>
+                            {% else %}
+                            <a href="{% url 'reservations:reservations_list_view' %}" class="btn btn-primary btn-sm">Click here -----></a>
+                            {% endif %} 
+                        </div>
                     </div>
                 </div>
 
-                <div class="card shadow">
-                    <!-- <img src="..." class="card-img-top" alt="..."> -->
-                        <div class="card-body">
-                            <h5 class="card-title">Create Reservations</h5>
-                            <a href="{% url 'reservations:create_reservations' %}" class="btn btn-primary btn-sm">Click here -----></a>
-                        </div>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <div class="card shadow">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                            <div class="card-body">
+                                <h5 class="card-title">Create Reservations</h5>
+                                <a href="{% url 'reservations:create_reservations' %}" class="btn btn-primary btn-sm">Click here -----></a>
+                            </div>
+                    </div>
+    
                 </div>
 
-                <div class="card shadow">
-                    <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    
+                    <div class="card shadow">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
                         <div class="card-body">
                             <h5 class="card-title">View Available Rooms</h5>
                             <a href="{% url 'reservations:room_list' %}" class="btn btn-primary btn-sm">Click here -----></a>
                         </div>
+                    </div>
                 </div>
+                {% if user.is_personel or user.is_administrator %}
+                <div class="col-sm-4 col-md-4 col-lg-4 mt-5">
+                    <div class="card shadow">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                            <div class="card-body">
+                                <h5 class="card-title">View Customer's Reservations</h5>
+                                <a href="{% url 'reservations:view_customers_reservation' %}" class="btn btn-primary btn-sm">Click here -----></a>
+                            </div>
+                    </div>
+                </div>      
                 
+                <div class="col-sm-4 col-md-4 col-lg-4 mt-5">
+                    <div class="card shadow">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                            <div class="card-body">
+                                <h5 class="card-title">View Checked In & Out Customers</h5>
+                                <a href="{% url 'reservations:list_of_check_in_or_out' %}" class="btn btn-primary btn-sm">Click here -----></a>
+                            </div>
+                    </div>
+                </div>  
+
+                <div class="col-sm-4 col-md-4 col-lg-4 mt-5">
+                    <div class="card shadow">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                            <div class="card-body">
+                                <h5 class="card-title">View Customer's <br> Accounts</h5>
+                                <a href="{% url 'accounts:customer_account' %}" class="btn btn-primary btn-sm">Click here -----></a>
+                            </div>
+                    </div>
+                </div>  
+                {% endif %}
+
+                {% if user.is_administrator %}
+                <div class="col-sm-4 col-md-4 col-lg-4 mt-5">
+                    <div class="card shadow">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                            <div class="card-body">
+                                <h5 class="card-title">View Administrator's Account</h5>
+                                <a href="{% url 'accounts:personnel_account' %}" class="btn btn-primary btn-sm">Click here -----></a>
+                            </div>
+                    </div>
+                </div>  
+
+                <div class="col-sm-4 col-md-4 col-lg-4 mt-5">
+                    <div class="card shadow">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                            <div class="card-body">
+                                <h5 class="card-title">View Personnel's <br> Account</h5>
+                                <a href="{% url 'accounts:personnel_account' %}" class="btn btn-primary btn-sm">Click here -----></a>
+                            </div>
+                    </div>
+                </div>  
+
+                <div class="col-sm-4 col-md-4 col-lg-4 mt-5">
+                   
+                </div>  
+                {% endif %}
+
             </div>
-        
         </div>
+
+        
     </div>
 </div>
 {% endblock  %}

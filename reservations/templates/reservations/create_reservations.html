@@ -4,36 +4,21 @@
 <div class="col-md-12">
     <div class="row">
         <div class="col-lg-4">
-            <div class="card shadow rounded">
-                <div class="card-header text-center" style="background-color: #4fc3f7 ;">
-                    Standard Room
-                </div>
-                <div class="card-body text-center" style="font-size: 14px;">
-                    <p><i class="fas fa-wifi" aria-hidden="false"></i>&nbsp Unlimited WiFi Access</p>
-                </div>
-            </div>
+            <button type="button" class="btn btn-block shadow" data-toggle="modal" data-target="#standardModal"  style="background-color: #4fc3f7 ;">
+                Standard Room
+            </button>
         </div>
 
         <div class="col-lg-4">
-            <div class="card shadow rounded">
-                <div class="card-header text-center" style="background-color: #eeff41  ;">
-                    Deluxe Room
-                </div>
-                <div class="card-body text-center" style="font-size: 14px;">
-                    Airconditioned
-                </div>
-            </div>
+            <button type="button" class="btn btn-block shadow" data-toggle="modal" data-target="#deluxeModal"  style="background-color: #eeff41 ;">
+                Deluxe Room
+            </button>
         </div>
 
         <div class="col-lg-4">
-            <div class="card shadow rounded">
-                <div class="card-header text-center" style="background-color: #ef5350  ;">
-                    VIP Room
-                </div>
-                <div class="card-body">
-                    This is some text within a card body.
-                </div>
-            </div>
+            <button type="button" class="btn btn-block shadow" data-toggle="modal" data-target="#vipModal"  style="background-color: #ef5350 ;">
+                VIP Room
+            </button>
         </div>
     </div>
     <div class="card shadow mb-5 mt-5">
@@ -46,5 +31,89 @@
         
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="standardModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Standard Room</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <span><i class="fas fa-bed" aria-hidden="false"></i>&nbsp Single Size Bedroom</span>
+        <br>
+        <span><i class="fas fa-wifi" aria-hidden="false"></i>&nbsp Unlimited WiFi Access</span>
+        <br>
+        <span><i class="fas fa-shower" aria-hidden="false"></i>&nbsp Shower Room</span>
+        <br>
+        <span><i class="fas fa-utensils" aria-hidden="false"></i>&nbsp No breakfast or Dinner Included</span>
+        <br>
+    </div>
+    <hr>
+    <footer class=" text-center">
+        ₱ 1, 500.00
+    </footer>
+    </div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deluxeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Deluxe Room</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <span><i class="fas fa-bed" aria-hidden="false"></i>&nbsp Double Size Bedroom</span>
+        <br>
+        <span><i class="fas fa-wifi" aria-hidden="false"></i>&nbsp Unlimited WiFi Access</span>
+        <br>
+        <span><i class="fas fa-bath" aria-hidden="false"></i>&nbsp Shower and Bathub Room</span>
+        <br>
+        <span><i class="fas fa-utensils" aria-hidden="false"></i>&nbsp Breakfast Included</span>
+        <br>
+    </div>
+    <hr>
+    <footer class=" text-center">
+        ₱ 2, 500.00
+    </footer>
+    </div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="vipModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">VIP Room</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <span><i class="fas fa-bed" aria-hidden="false"></i>&nbsp Queen Size Bedroom</span>
+        <br>
+        <span><i class="fas fa-wifi" aria-hidden="false"></i>&nbsp Unlimited WiFi Access</span>
+        <br>
+        <span><i class="fas fa-bath" aria-hidden="false"></i>&nbsp Shower and Bathub Room</span>
+        <br>
+        <span><i class="fas fa-utensils" aria-hidden="false"></i>&nbsp Breakfast and Dinner Included</span>
+        <br>
+    </div>
+    <hr>
+    <footer class=" text-center">
+        ₱ 3, 000.00
+    </footer>
+    </div>
+</div>
 </div>
 {% endblock  %}

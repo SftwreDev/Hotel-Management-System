@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+.my-custom-scrollbar {
+    position: relative;
+    height: 300px;
+    overflow: auto;
+}
+.table-wrapper-scroll-y {
+    display: block;
+}
+</style>
+<div class="col-md-12">
+    {% for message in messages %}
+        <div class="alert alert-primary" role="alert">
+            {{message}}
+        </div>
+    {% endfor %}
+    <div class="card shadow">
+
+        <div class="card-header">
+            List of your active reservations
+        </div>
+
+        <div class="card-body">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                <table class="table table-borderless table-hover table-sm text-center" style="font-size: 14px;">
+                    <thead>
+                        <tr class="table-primary">
+                            <th scope="col"></th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Check In</th>
+                            <th scope="col">Check Out</th>
+                            <th scope="col">Arrival Date</th>
+                            <th scope="col">Departure Date</th>
+                            <th scope="col">Hours to Stay</th>
+                            <th scope="col">Room Type & No</th>
+                            <th scope="col">Rates</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    {% for list in reservations %}
+                    <tbody>
+
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{list.customer}}</td>
+                            <td>{{list.check_in}}</td>
+                            <td>{{list.check_out}}</td>
+                            <td>{{list.arrival_date}}</td>
+                            <td>{{list.departure_date}}</td>
+                            <td>{{list.hrs_to_stay}} hrs</td>
+                            <td>{{list.room}}</td>
+                            <td>
+                                {% if list.room == 'Standard Room' %}
+                                1,500.00
+                                {% elif list.room == 'Deluxe Room' %}
+                                2,500.00
+                                {% else %}
+                                3,000.00
+                                {% endif %}
+                            </td>
+                            <td class="text-muted">{{list.date_created}}</td>
+                            <td>
+                                <a href="{% url 'reservations:update_reservations_view' list.pk %}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete this reservations?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                            <a href="{% url 'reservations:delete_reservations' list.pk %}" class="bn btn-danger btn-sm">Delete</a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+
+        $(".alert").delay(2500).slideUp(200, function() {
+            $(this).alert('close');
+        });
+        
+    });
+</script>
+{% endblock  %}

@@ -1,11 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
+{% include "_modal.html" %}
+{% if user.is_personel or user.is_administrator %}
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" data-target="#exampleModal">
     Add new Room
 </button>
-
+{%endif%}
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog">
@@ -46,13 +49,26 @@
     </div>
     <div class="card-body" style="font-size: 11px;">
         <div class="row">
-            {% for list in room %}
-            {% if list.room_type == 'Standard Room' %}
+            {% for standard_room in room %}
+            {% if standard_room.room_type == 'Standard Room' %}
             {% include "../room/room_delete_modal.html" %}
-            {% if list.available == True %}
+            {% if standard_room.available == True %}
             <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                
                 <div class="card text-center shadow">
-                    <div class="card-header">Room {{ list.room_no }}
+                    
+                    <div class="card-header">
+                        {% if user.is_personel or user.is_administrator %}
+                        <a href="" class="adminModal justify-content-end" data-toggle="modal" data-form-url="{% url 'reservations:update_room' standard_room.id %}">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        {% endif %}
+                        Room {{ standard_room.room_no }}
+                        {% if user.is_personel or user.is_administrator %}
+                        <a type="button" class="text-danger" data-toggle="modal" data-target="#standardModal">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                        {% endif %}
                     </div>
                         <div class="card-body" style="background-color: #4fc3f7;">
                             <h7 class="text-white">Available</h7>
@@ -62,7 +78,19 @@
             {% else %}
             <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
                 <div class="card text-center shadow">
-                    <div class="card-header">Room {{list.room_no}}</div>
+                    <div class="card-header">
+                        {% if user.is_personel or user.is_administrator %}
+                        <a href="" class="adminModal justify-content-end" data-toggle="modal" data-form-url="{% url 'reservations:update_room' standard_room.id %}">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        {% endif %}
+                        Room {{ standard_room.room_no }}
+                        {% if user.is_personel or user.is_administrator %}
+                        <a type="button" class="text-danger" data-toggle="modal" data-target="#standardModal">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                        {% endif %}
+                    </div>
                     <div class="card-body" style="background-color: #ef5350;">
                         <h7 class="text-white">Not Available</h7>
                     </div>
@@ -86,12 +114,25 @@
     </div>
     <div class="card-body" style="font-size: 11px;">
         <div class="row">
-    {% for list in room %}
-        {% if list.room_type == 'Deluxe Room' %}
-            {% if list.available == True %}
+    {% for deluxe in room %}
+    
+        {% if deluxe.room_type == 'Deluxe Room' %}
+        {% include "../room/room_delete_modal_deluxe.html" %}
+            {% if deluxe.available == True %}
             <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
                 <div class="card text-center shadow">
-                    <div class="card-header">Room {{ list.room_no }}
+                    <div class="card-header">
+                        {% if user.is_personel or user.is_administrator %}
+                        <a href="" class="adminModal justify-content-end" data-toggle="modal" data-form-url="{% url 'reservations:update_room' deluxe.id %}">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        {% endif %}
+                        Room {{ deluxe.room_no }}
+                        {% if user.is_personel or user.is_administrator %}
+                        <a type="button" class="text-danger" data-toggle="modal" data-target="#deluxeModal">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                        {% endif %}
                     </div>
                         <div class="card-body" style="background-color: #4fc3f7;">
                             <h7 class="text-white">Available</h7>
@@ -101,7 +142,19 @@
             {% else %}
             <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
                 <div class="card text-center shadow">
-                    <div class="card-header">Room {{list.room_no}}</div>
+                    <div class="card-header">
+                        {% if user.is_personel or user.is_administrator %}
+                        <a href="" class="adminModal justify-content-end" data-toggle="modal" data-form-url="{% url 'reservations:update_room' deluxe.id %}">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        {% endif %}
+                        Room {{ deluxe.room_no }}
+                        {% if user.is_personel or user.is_administrator %}
+                        <a type="button" class="text-danger" data-toggle="modal" data-target="#deluxeModal">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                        {% endif %}
+                    </div>
                     <div class="card-body" style="background-color: #ef5350;">
                         <h7 class="text-white">Not Available</h7>
                     </div>
@@ -123,13 +176,21 @@
     </div>
     <div class="card-body" style="font-size: 11px;">
         <div class="row">
-    {% for list in room %}
-        {% if list.room_type == 'VIP Room' %}
-        {% include "../room/room_delete_modal.html" %}
-            {% if list.available == True %}
+    {% for vip in room %}
+    
+        {% if vip.room_type == 'VIP Room' %}
+        {% include "../room/room_delete_modal_vip.html" %}
+            {% if vip.available == True %}
             <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
                 <div class="card text-center shadow">
-                    <div class="card-header">Room {{ list.room_no }}
+                    <div class="card-header">
+                        <a href="" class="adminModal justify-content-end" data-toggle="modal" data-form-url="{% url 'reservations:update_room' vip.id %}">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        Room {{ vip.room_no }}
+                        <a type="button" class="text-danger" data-toggle="modal" data-target="#vipModal">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
                     </div>
                         <div class="card-body" style="background-color: #4fc3f7;">
                             <h7 class="text-white">Available</h7>
@@ -139,7 +200,15 @@
             {% else %}
             <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
                 <div class="card text-center shadow">
-                    <div class="card-header">Room {{list.room_no}}</div>
+                    <div class="card-header">
+                        <a href="" class="adminModal justify-content-end" data-toggle="modal" data-form-url="{% url 'reservations:update_room' vip.id %}">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        Room {{ vip.room_no }}
+                        <a type="button" class="text-danger" data-toggle="modal" data-target="#vipModal">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </div>
                     <div class="card-body" style="background-color: #ef5350;">
                         <h7 class="text-white">Not Available</h7>
                     </div>
@@ -155,3 +224,20 @@
 
 
 {% endblock %}
+
+
+{% block extrascripts  %}
+  
+<script>
+
+    $(".adminModal").each(function () {
+        $(this).modalForm({
+            formURL: $(this).data('form-url')
+        });
+    });
+
+    $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+            $(".alert").slideUp(500);
+        });
+</script>
+{% endblock extrascripts  %}
