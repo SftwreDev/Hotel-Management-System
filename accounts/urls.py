@@ -12,7 +12,11 @@ from .views import (
     update_customer_account,
     view_personnel_account_list,
     delete_personnel_account,
-    update_personnel_account
+    update_personnel_account,
+    view_admin_account_list,
+    delete_admin_account,
+    update_admin_account
+
 
 )
 
@@ -32,4 +36,8 @@ urlpatterns = [
     path('personnel-accounts-list/', view_personnel_account_list, name = "personnel_account"),
     path('delete-personnel-accounts/<int:pk>/', delete_personnel_account, name = "delete_personnel_account"),
     path('update-personnel-accounts/<int:pk>/', update_personnel_account, name = "update_personnel_account"),
+
+    path('admin-accounts-list/', view_admin_account_list, name = "admin_account"),
+    path('delete-admin-accounts/<int:pk>/', delete_admin_account, name = "delete_admin_account"),
+    path('update-admin-accounts/<int:pk>/', update_admin_account, name = "update_admin_account"),
 ]
