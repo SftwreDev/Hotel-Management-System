@@ -16,7 +16,11 @@
                     <a href="{% url 'reservations:create_reservations' %}">Create Reservations</a>
                 </li>
                 <li>
+                    {% if user.is_customer %}
                     <a href="{% url 'reservations:reservations_list' %}">View Reservations</a>
+                    {% else %}
+                    <a href="{% url 'reservations:reservations_list_view' %}">View Reservations</a>
+                    {% endif %}
                 </li>
                 <li>
                     <a href="{% url 'reservations:room_list' %}">Available Rooms</a>
@@ -35,6 +39,8 @@
         <p style="font-size: 12px;">Logged in as Personnel</p>
         {% elif user.is_customer %}
         <p style="font-size: 12px;">Logged in as Customer</p>
+        {% elif user.is_superuser %}
+        <p style="font-size: 12px;">Logged in as Superuser</p>
         {% endif %}
     </ul>
     

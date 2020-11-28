@@ -35,8 +35,7 @@ class PersonnelSignUp(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
-        return redirect('reservations:homepage')
+        return redirect('accounts:personnel_account')
 
 class AdminSignUp(CreateView):
     model = User
@@ -49,8 +48,7 @@ class AdminSignUp(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
-        return redirect('reservations:homepage')
+        return redirect('accounts:admin_account')
 
 class SignUpChoices(TemplateView):
     template_name = 'accounts/sign_up_option.html'

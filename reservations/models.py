@@ -24,20 +24,15 @@ class Reservations(models.Model):
         ('VIP Room', 'VIP Room')
     )
     customer = models.ForeignKey(User, on_delete = models.CASCADE, related_name="reservation_user" )
-    check_in = models.TimeField(auto_now_add=False, verbose_name = "Time for Check In")
-    check_out = models.TimeField(auto_now_add=False, verbose_name = "Time for Check Out")
-    arrival_date = models.DateField(auto_now_add=False, verbose_name= "Date of Arrival")
-    departure_date = models.DateField(auto_now_add=False, verbose_name= "Date of Departure")
+    check_in_datetime = models.DateTimeField(auto_now_add=False, verbose_name = "Date & Time for Check In")
+    check_out_datetime = models.DateTimeField(auto_now_add=False, verbose_name = "Date & Time for Check Out")
     hrs_to_stay = models.PositiveIntegerField(verbose_name = 'Hours to Stay')
     room = models.ForeignKey(Room, on_delete = models.CASCADE, related_name="room_type_and_no", verbose_name = "Room Type & No" )
+    active = models.BooleanField(default=True)
     date_created = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.customer}"
-
-    def get_hours_to_stay(self):
-        return self.check_in - self.check_out
-
 
 
 

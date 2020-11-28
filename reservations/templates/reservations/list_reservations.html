@@ -29,10 +29,8 @@
                     <thead>
                         <tr class="table-primary">
                             <th scope="col"></th>
-                            <th scope="col">Check In</th>
-                            <th scope="col">Check Out</th>
-                            <th scope="col">Arrival Date</th>
-                            <th scope="col">Departure Date</th>
+                            <th scope="col">Check In Date & Time</th>
+                            <th scope="col">Check Out Date & Time</th>
                             <th scope="col">Hours to Stay</th>
                             <th scope="col">Room Type & No</th>
                             <th scope="col">Rates</th>
@@ -45,10 +43,8 @@
 
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
-                            <td>{{list.check_in}}</td>
-                            <td>{{list.check_out}}</td>
-                            <td>{{list.arrival_date}}</td>
-                            <td>{{list.departure_date}}</td>
+                            <td>{{list.check_in_datetime}}</td>
+                            <td>{{list.check_out_datetime}}</td>
                             <td>{{list.hrs_to_stay}} hrs</td>
                             <td>{{list.room}}</td>
                             <td>₱ {{list.room.rates}}</td>

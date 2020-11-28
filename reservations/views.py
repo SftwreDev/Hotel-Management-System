@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 
 from accounts.decorators import customer_required, personnel_required, administrator_required
-from .forms import ReservationForm, RoomForm,RoomModalForm, CheckInAndOutForm
+from .forms import ReservationForm, RoomForm,RoomModalForm, CheckInAndOutForm,ReservationFormField
 from .models import Reservations, Room, CheckInAndOut
 import datetime
 from bootstrap_modal_forms.generic import (
@@ -101,7 +101,7 @@ def reservations_list(request):
 
     template_name = "reservations/list_reservations.html"
 
-    reservations = Reservations.objects.filter(customer=request.user)
+    reservations = Reservations.objects.filter(customer=request.user, active = "True")
     
     context = {
         'reservations' : reservations
@@ -116,7 +116,7 @@ def reservations_list_view(request):
 
     template_name = "reservations/all_reservation_list.html"
 
-    reservations = Reservations.objects.all()
+    reservations = Reservations.objects.filter(active="True")
     
     context = {
         'reservations' : reservations
@@ -211,7 +211,7 @@ class RoomUpdateView(BSModalUpdateView):
 def view_customers_reservation(request):
     template_name = 'reservations/customer_reservation_list.html'
 
-    reservations = Reservations.objects.all()
+    reservations = Reservations.objects.filter(active="True")
     
     context = {
         'reservations' : reservations
@@ -224,17 +224,23 @@ def check_in_and_out(request, pk):
     template_name = 'reservations/check_in_and_out_form.html'
 
     customer_reservations = Reservations.objects.get(id=pk)
+    reserved = get_object_or_404(Reservations, pk=pk)
+    reservations = ReservationFormField(request.POST or None, instance=reserved)
     form = CheckInAndOutForm(request.POST or None)
     check_in_date = datetime.datetime.today()
     
-    if form.is_valid():
+    if form.is_valid() and reservations.is_valid():
         check_in_or_out = form.save(commit=False)
+        reserved = reservations.save(commit=False)
+        reserved.active = False
         check_in_or_out.reservations = customer_reservations
         check_in_or_out.check_in_date_time = check_in_date
+        reserved.save()
         check_in_or_out.save()
         messages.success(request, "Transaction successfully completed")
         return redirect('reservations:list_of_check_in_or_out')
     else:
+        
         form = CheckInAndOutForm(request.POST or None)
 
     context = {
@@ -282,7 +288,7 @@ def check_out(request, pk):
         check_in_or_out.check_in_date_time = check_out_date
         check_in_or_out.save()
         messages.success(request, "Transaction successfully completed")
-        return redirect('reservations:list_of_check_in_or_out')
+        return redirect('reservations:list_of_check_out')
     else:
         form = CheckInAndOutForm(request.POST or None, instance=customer)
     
