@@ -21,10 +21,10 @@
         <div class="card-header">
           <ul class="nav nav-pills card-header-pills">
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'reservations:view_customers_reservation' %}">Active Reservations</a>
+              <a class="nav-link " href="{% url 'reservations:view_customers_reservation' %}">Active Reservations</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'reservations:view_customers_reservation_history' %}">Reservations History</a>
+              <a class="nav-link active" href="{% url 'reservations:view_customers_reservation_history' %}">Reservations History</a>
             </li>
             
           </ul>
@@ -33,14 +33,14 @@
             <div class="card shadow">
 
                 <div class="card-header">
-                    List of customer's active reservations
+                    List of customer's previous reservations
                 </div>
         
                 <div class="card-body">
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
                         <table class="table table-borderless table-hover table-sm text-center" style="font-size: 14px;">
-                            <thead>
-                                <tr class="table-primary">
+                            <thead> 
+                                <tr class="table-primary text-center">
                                     <th scope="col"></th>
                                     <th scope="col">Customer</th>
                                     <th scope="col">Check In Date & Time</th>
@@ -65,7 +65,7 @@
                                     <td>{{list.room.rates}}</td>
                                     <td class="text-muted">{{list.date_created}}</td>
                                     <td>
-                                        <a href="{% url 'reservations:check_in_and_out' list.pk %}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
+                                        
                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">
                                             <i class="far fa-trash-alt"></i>
                                         </button>

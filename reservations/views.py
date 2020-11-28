@@ -207,7 +207,7 @@ class RoomUpdateView(BSModalUpdateView):
     success_message = 'Room updated succesfully'
     success_url = reverse_lazy('reservations:room_list')
 
-
+@login_required
 def view_customers_reservation(request):
     template_name = 'reservations/customer_reservation_list.html'
 
@@ -219,6 +219,26 @@ def view_customers_reservation(request):
 
     return render(request, template_name, context)
 
+@login_required
+def view_customers_reservation_history(request):
+    template_name = 'reservations/customer_reservation_history_list.html'
+
+    reservations = Reservations.objects.filter(active="False")
+    
+    context = {
+        'reservations' : reservations
+    }
+
+    return render(request, template_name, context)
+
+@login_required
+def delete_cx_reservations(request, pk):
+    """ This is where we render deleting a specific reservations """
+
+
+    obj = Reservations.objects.get(id=pk)
+    obj.delete()
+    return redirect('reservations:view_customers_reservation')
 
 def check_in_and_out(request, pk):
     template_name = 'reservations/check_in_and_out_form.html'

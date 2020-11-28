@@ -32,7 +32,7 @@ class ReservationForm(forms.ModelForm):
         check_out_datetime = cleaned_data.get("check_out_datetime")
         today = datetime.datetime.today()
 
-        if check_in_datetime.replace(tzinfo=None) < today or check_in_datetime.replace(tzinfo=None) < today :
+        if check_in_datetime.replace(tzinfo=None) < today or check_out_datetime.replace(tzinfo=None) < today :
             raise forms.ValidationError('You cannot make a reservations on previous dates')
 
 

@@ -27,7 +27,7 @@ class CustomerSignUp(CreateView):
 class PersonnelSignUp(CreateView):
     model = User
     form_class = PersonnelSignUpForm
-    template_name = 'registration/signup_form.html'
+    template_name = 'registration/personnel_signup_form.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'personel'
@@ -40,7 +40,7 @@ class PersonnelSignUp(CreateView):
 class AdminSignUp(CreateView):
     model = User
     form_class = AdministratorSignUpForm
-    template_name = 'registration/signup_form.html'
+    template_name = 'registration/admin_signup_form.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'administrator'

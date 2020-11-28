@@ -33,6 +33,7 @@
                             <th scope="col">Username</th>
                             <th scope="col">Email</th>
                             <th scope="col">Date Registered</th>
+                            <th scope="col">Last Login</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -44,6 +45,7 @@
                             <td>{{list.username}}</td>
                             <td>{{list.email}}</td>
                             <td>{{list.date_joined}}</td>
+                            <td>{{list.last_login|default_if_none:"Not yet logging in"}}</td>
                             <td>
                                 <a href="{% url 'accounts:update_admin_account' list.pk %}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">
