@@ -116,7 +116,7 @@ def reservations_list_view(request):
 
     template_name = "reservations/all_reservation_list.html"
 
-    reservations = Reservations.objects.filter(active="True")
+    reservations = Reservations.objects.filter(active="True", customer=request.user)
     
     context = {
         'reservations' : reservations
