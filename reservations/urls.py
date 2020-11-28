@@ -18,7 +18,10 @@ from .views import (
     list_of_check_in_or_out,
     delete_check_in,
     check_out,
-    list_of_check_out
+    list_of_check_out,
+
+    about,
+    contact_us
 )
 
 app_name = "reservations"
@@ -42,6 +45,10 @@ urlpatterns = [
     path("delete-checked-in-customer/<int:pk>/", delete_check_in, name = 'delete_check_in'),
     path("check-out/<pk>/", check_out, name = 'check_out'),
     path("checked-out-list/", list_of_check_out, name = 'list_of_check_out'),
+
+
+    path("about/", about, name = 'about'),
+    path("contact-us/", contact_us, name = 'contact_us'),
 
     
 ]

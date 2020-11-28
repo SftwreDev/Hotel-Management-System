@@ -301,3 +301,20 @@ def list_of_check_out(request):
     }
 
     return render(request, template_name, context)  
+
+
+@login_required
+def about(request):
+    template_name = "reservations/about.html"
+
+    context = {}
+    
+    return render(request, template_name, context)
+
+@login_required
+def contact_us(request):
+    template_name = "reservations/contact_us.html"
+
+    context = {}
+    
+    return render(request, template_name, context)

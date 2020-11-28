@@ -10,6 +10,7 @@ class Room(models.Model):
     )
     room_type = models.CharField(max_length=100, choices=room , verbose_name = 'Type of Room')
     room_no = models.PositiveIntegerField(verbose_name = 'Room No', unique=True, help_text = "Should be unique and not existing room no")
+    rates = models.DecimalField(max_digits=10, decimal_places=2, verbose_name = "Rates per Room")
     available = models.BooleanField(default=False, verbose_name="Available")
 
 
