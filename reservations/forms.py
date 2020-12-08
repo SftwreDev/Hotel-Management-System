@@ -16,10 +16,10 @@ class TimeInput(forms.DateInput):
     input_type = 'datetime-local'
 
 class ReservationForm(forms.ModelForm):
-    room = forms.ModelChoiceField(Room.objects.filter(available = "True")) 
+    
     class Meta :
         model = Reservations
-        fields = ['check_in_datetime', 'check_out_datetime', 'hrs_to_stay', 'room']
+        fields = ['name','address','email_address','contact','type_of_id','id_no','no_of_days','check_in_datetime', 'check_out_datetime', 'room']
         widgets = {
             'check_in_datetime' : TimeInput(),
             'check_out_datetime' : TimeInput(),
@@ -32,9 +32,20 @@ class ReservationForm(forms.ModelForm):
         check_out_datetime = cleaned_data.get("check_out_datetime")
         today = datetime.datetime.today()
 
-        if check_in_datetime.replace(tzinfo=None) < today or check_out_datetime.replace(tzinfo=None) < today :
+        if check_in_datetime.replace(tzinfo=None) < today or check_out_datetime.replace(tzinfo=None) < today:
             raise forms.ValidationError('You cannot make a reservations on previous dates')
+        elif  check_out_datetime < check_in_datetime :
+            raise forms.ValidationError('Invalid input on check out date')
 
+         # if check_in_date < today or check_out_date < today:
+        #     raise forms.ValidationError('You cannot make a reservations on previous dates')
+        # if  check_out_date < check_in_date :
+        #     raise forms.ValidationError('Invalid input on check out date')
+
+        # if check_in_time < time or check_out_time < time:
+        #     raise forms.ValidationError('You cannot make a reservations on previous time')
+        # if  check_out_time < check_in_time :
+        #     raise forms.ValidationError('Invalid input on check out time')
 
 class ReservationFormField(forms.ModelForm):
    
@@ -43,13 +54,22 @@ class ReservationFormField(forms.ModelForm):
         fields = ['active']
       
 
+class SelectRoomForm(forms.ModelForm):
+    room = forms.ModelChoiceField(Room.objects.filter(available = "True")) 
+    class Meta:
+        model = Reservations
+        fields = ['room']
 
 class RoomForm(forms.ModelForm):
     class Meta:
         model = Room
         fields = '__all__'
 
-
+class RoomFormField(forms.ModelForm):
+    
+    class Meta:
+        model = Room
+        fields = ['available']
 
 class RoomModalForm(BSModalModelForm):
     class Meta:

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+.my-custom-scrollbar {
+    position: relative;
+    height: 300px;
+    overflow: auto;
+}
+.table-wrapper-scroll-y {
+    display: block;
+}
+</style>
+<div class="col-md-12">
+    {% for message in messages %}
+        <div class="alert alert-primary" role="alert">
+            {{message}}
+        </div>
+    {% endfor %}
+    <div class="card shadow">
+
+        <div class="card-header">
+            List of your pre-reservations
+        </div>
+
+        <div class="card-body">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                <table class="table table-borderless table-hover table-sm text-center" style="font-size: 14px;">
+                    <thead>
+                        <tr class="table-primary">
+                            <th scope="col"></th>
+                            <th scope="col">Check In Date & Time</th>
+                            <th scope="col">Check Out Date & Time</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col">Room</th>
+                        </tr>
+                    </thead>
+                    {% for list in reservations %}
+                    <tbody>
+
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{list.check_in_datetime}}</td>
+                            <td>{{list.check_out_datetime}}</td>
+                            <td class="text-muted">{{list.date_created}}</td>
+                            <td>
+                                <a href="{% url 'reservations:select_room' list.pk %}" class="btn btn-primary btn-sm">Select Room</a>
+                                
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+
+        $(".alert").delay(2500).slideUp(200, function() {
+            $(this).alert('close');
+        });
+        
+    });
+</script>
+{% endblock  %}

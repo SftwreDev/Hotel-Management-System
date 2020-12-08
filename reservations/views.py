@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 
 from accounts.decorators import customer_required, personnel_required, administrator_required
-from .forms import ReservationForm, RoomForm,RoomModalForm, CheckInAndOutForm,ReservationFormField
+from .forms import ReservationForm, RoomForm,RoomModalForm, CheckInAndOutForm,ReservationFormField, RoomFormField, SelectRoomForm
 from .models import Reservations, Room, CheckInAndOut
 import datetime
 from bootstrap_modal_forms.generic import (
@@ -18,7 +18,7 @@ from bootstrap_modal_forms.generic import (
 )
 from accounts.models import User, Customer, Personnel, Administrator
 
-
+import uuid
 
 @login_required
 def homepage(request):
@@ -36,9 +36,8 @@ def create_reservations(request):
     """ This is where we render the forms for creating new reservations """
     
     template_name = "reservations/create_reservations.html"
-
-    form = ReservationForm(request.POST or None)
     
+    form = ReservationForm(request.POST or None)
     if form.is_valid():
         reserved = form.save(commit=False)
         reserved.customer = request.user
@@ -47,6 +46,48 @@ def create_reservations(request):
         return redirect('reservations:reservations_list')
     else:
         form = ReservationForm(request.POST or None)
+
+    context = {
+        'form' : form
+    }
+
+    return render(request, template_name, context)
+
+@login_required
+def reservations_pre_list(request):
+    """ This is where we render the list of all active reservations """
+
+
+    template_name = "reservations/prelist_reservations.html"
+    
+    reservations = Reservations.objects.filter(customer=request.user, active = "True")
+
+    context = {
+        'reservations' : reservations
+    }
+
+    return render(request, template_name, context)
+
+@login_required
+def select_room(request, pk):
+    template_name = 'reservations/select_room.html'
+    
+    reservations  = Reservations.objects.get(id=pk)
+    form = SelectRoomForm(request.POST or None, instance = reservations)
+    # roomid = Reservations.objects.get(room)
+    room_avail = Reservations.objects.all()
+    available_form = RoomFormField(request.POST or None)
+    if form.is_valid():
+        room = form.save(commit=False)
+        room_available = available_form.save(commit=False)
+        room_available.available = False
+        room_available.save()
+        room.save()
+        
+        return redirect('reservations:reservations_list')
+
+    else:
+        form = SelectRoomForm(request.POST or None, instance = reservations)
 
     context = {
         'form' : form
@@ -100,9 +141,10 @@ def reservations_list(request):
 
 
     template_name = "reservations/list_reservations.html"
-
-    reservations = Reservations.objects.filter(customer=request.user, active = "True")
     
+    reservations = Reservations.objects.filter(customer=request.user, active = "True")
+    ci = Reservations.objects.only('check_in_datetime').filter(customer=request.user)
+    print(ci)
     context = {
         'reservations' : reservations
     }
@@ -246,6 +288,7 @@ def check_in_and_out(request, pk):
     customer_reservations = Reservations.objects.get(id=pk)
     reserved = get_object_or_404(Reservations, pk=pk)
     reservations = ReservationFormField(request.POST or None, instance=reserved)
+    
     form = CheckInAndOutForm(request.POST or None)
     check_in_date = datetime.datetime.today()
     

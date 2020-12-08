@@ -1,5 +1,6 @@
-
+{% load static %}
 {% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html>
 
@@ -20,8 +21,19 @@
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif; 
+      background: #ebf3fa; 
+      background-image: url({% static 'images/banner-room.jpg' %}); 
+      background-size: cover; 
+      background-repeat: no-repeat;
+    }
+  </style>
+
 </head>
-<body style="font-family: 'Poppins', sans-serif; background: #ebf3fa;">
+<body>
     <div class="container-fluid col-md-12">
         <div class="col-md-4"></div>
         <div class="col-md-4 offset-md-4">

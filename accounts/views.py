@@ -4,8 +4,8 @@ from django.views.generic.edit import CreateView
 from django.views.generic.base import TemplateView
 from django.contrib import messages
 from django.contrib.auth import login
-from .models import User, Customer, Personnel, Administrator
-from .forms import CustomerSignUpForm, PersonnelSignUpForm, AdministratorSignUpForm
+from .models import User, Customer, Personnel, Administrator, CustomerInfo
+from .forms import CustomerSignUpForm, PersonnelSignUpForm, AdministratorSignUpForm, CustomerInfoForm
 from django.contrib.auth.decorators import login_required
 
 class CustomerSignUp(CreateView):
@@ -20,9 +20,20 @@ class CustomerSignUp(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('reservations:homepage')
+        return redirect('accounts:customer_info')
 
+class CustomerSignUpPage(CreateView):
+    model = User
+    form_class = CustomerSignUpForm
+    template_name = 'registration/customer_signup_form.html'
 
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'customer'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        return redirect('accounts:customer_account')
 
 class PersonnelSignUp(CreateView):
     model = User
@@ -161,3 +172,65 @@ def update_admin_account(request, pk):
     context = { 'form' : form }
 
     return render(request, template_name, context)
+
+
+def customer_info(request):
+    template_name = 'accounts/customer_info_form.html'
+
+    form = CustomerInfoForm(request.POST or None)
+    
+    if form.is_valid():
+        cx = form.save(commit=False)
+        cx.customer = request.user
+        cx.save()
+        messages.success(request, "You have successfully completed your registration")
+        return redirect('reservations:homepage')
+    else:
+        form = CustomerInfoForm(request.POST or None)
+
+    context = {
+        'form' : form
+    }
+
+    return render(request, template_name, context)
+
+
+def cx_info_list(request):
+    template_name = 'accounts/cx_info_list.html'
+
+    cx = CustomerInfo.objects.filter(customer = request.user)
+
+    context = {
+        'cx' : cx
+    }
+
+    return render(request, template_name, context)
+
+
+def cx_info_update(request, pk):
+    template_name = 'accounts/customer_info_form.html'
+
+    obj = get_object_or_404(CustomerInfo, pk=pk)
+    form = CustomerInfoForm(request.POST or None, instance=obj)
+    
+    if form.is_valid():
+        cx = form.save(commit=False)
+        cx.customer = request.user
+        cx.save()
+        messages.success(request, "You have successfully completed your registration")
+        return redirect('accounts:cx_info_list')
+    else:
+        form = CustomerInfoForm(request.POST or None, instance=obj)
+
+    context = {
+        'form' : form
+    }
+
+    return render(request, template_name, context)
+
+
+def delete_info(request, pk):
+
+    obj = CustomerInfo.objects.get(id=pk)
+    obj.delete()
+    return redirect('accounts:cx_info_list')

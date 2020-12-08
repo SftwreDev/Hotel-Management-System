@@ -2,7 +2,7 @@ from django import forms
 
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
-from .models import User, Customer, Personnel, Administrator
+from .models import User, Customer, Personnel, Administrator, CustomerInfo
 
 
 class CustomerSignUpForm(UserCreationForm):
@@ -45,3 +45,8 @@ class AdministratorSignUpForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class CustomerInfoForm(forms.ModelForm):
+    class Meta:
+        model = CustomerInfo
+        fields = ('l_name', 'f_name', 'address', 'email_add', 'contact_no', 'age', 'type_of_id', 'id_no')

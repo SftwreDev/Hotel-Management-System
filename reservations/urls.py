@@ -10,6 +10,8 @@ from .views import (
     reservations_list_view,
     update_reservations_view,
     view_customers_reservation_history,
+    reservations_pre_list,
+    select_room,
 
     room_list,
     delete_room,
@@ -38,6 +40,8 @@ urlpatterns = [
     path("update-reservations/<pk>/", update_reservations, name = 'update_reservations'),
     path("update-reservations-view/<pk>/", update_reservations_view, name = 'update_reservations_view'),
     path("delete-customer-reservations/<pk>/", delete_cx_reservations, name = 'delete_cx_reservations'),
+    path("list-of-pre-reservations/", reservations_pre_list, name = "reservations_pre_list"),
+    path("select-room-for-reservations/<pk>/", select_room, name = 'select_room'),
 
     path("available-rooms/", room_list, name = 'room_list'),
     path("deleting-room/<pk>/", delete_room, name = 'delete_room'),

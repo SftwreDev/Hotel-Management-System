@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<div class="card shadow">
+    <div class="card-header">Additional Information</div>
+    <div class="card-body">
+        <form class="row g-3" method="POST">
+            {% csrf_token %}
+        <div class="col-md-6">
+           {{form.l_name|as_crispy_field}}
+        </div>
+        <div class="col-md-6">
+            {{form.f_name|as_crispy_field}}
+        </div>
+        <div class="col-6">
+            {{form.address|as_crispy_field}}
+        </div>
+        <div class="col-6">
+            {{form.email_add|as_crispy_field}}
+        </div>
+        <div class="col-md-6">
+            {{form.contact_no|as_crispy_field}}
+         </div>
+         <div class="col-md-6">
+             {{form.age|as_crispy_field}}
+         </div>
+         <div class="col-6">
+             {{form.type_of_id|as_crispy_field}}
+         </div>
+         <div class="col-6">
+             {{form.id_no|as_crispy_field}}
+         </div>
+       
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
