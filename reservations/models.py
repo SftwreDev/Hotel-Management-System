@@ -13,7 +13,7 @@ class Room(models.Model):
     room_type = models.CharField(max_length=100, choices=room , verbose_name = 'Type of Room')
     room_no = models.PositiveIntegerField(verbose_name = 'Room No', unique=True, help_text = "Should be unique and not existing room no")
     rates = models.DecimalField(max_digits=10, decimal_places=2, verbose_name = "Rates per Room")
-    available = models.BooleanField(default=False, verbose_name="Available")
+    available = models.BooleanField(default=False, verbose_name="Reserved")
 
 
     def __str__(self):
@@ -32,7 +32,7 @@ class Reservations(models.Model):
     contact = models.CharField(max_length = 255, verbose_name = 'Contact No')
     type_of_id = models.CharField(max_length = 255, verbose_name = 'Type of ID')
     id_no = models.CharField(max_length = 255, verbose_name = 'ID No')
-    no_of_days = models.CharField(max_length = 255, verbose_name = 'No of Days')
+    no_of_days = models.PositiveIntegerField(max_length = 255, verbose_name = 'No of Days')
     check_in_datetime = models.DateTimeField(auto_now_add=False, verbose_name = "Date & Time for Check In")
     check_out_datetime = models.DateTimeField(auto_now_add=False, verbose_name = "Date & Time for Check Out")
     check_in_datetime = models.DateTimeField(auto_now_add=False, verbose_name = "Date & Time for Check In")
@@ -50,6 +50,9 @@ class Reservations(models.Model):
 
     def no_of_hrs(self):
         return self.check_in_datetime - self.check_out_datetime
+
+    def payment(self):
+        return self.no_of_days * self.room.rates
 
 
 

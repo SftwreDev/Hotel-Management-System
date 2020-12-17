@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 
 from accounts.decorators import customer_required, personnel_required, administrator_required
-from .forms import ReservationForm, RoomForm,RoomModalForm, CheckInAndOutForm,ReservationFormField, RoomFormField, SelectRoomForm
+from .forms import ReservationForm, RoomForm,RoomModalForm, CheckInAndOutForm,ReservationFormField, RoomFormField, SelectRoomForm, ReserveRoomForm
 from .models import Reservations, Room, CheckInAndOut
 import datetime
 from bootstrap_modal_forms.generic import (
@@ -43,7 +43,7 @@ def create_reservations(request):
         reserved.customer = request.user
         reserved.save()
         messages.success(request, "You have successfully create a new reservations")
-        return redirect('reservations:reservations_list')
+        return redirect('reservations:reservation_room_list')
     else:
         form = ReservationForm(request.POST or None)
 
@@ -165,6 +165,67 @@ def reservations_list_view(request):
     }
 
     return render(request, template_name, context)
+
+@login_required()
+def reserved_room(request, pk):
+    """ This is where we render the fucntion for deleting room """
+    template_name = 'room/reserved_room_form.html'
+    room = Room.objects.get(id=pk)
+    form = ReserveRoomForm(request.POST or None, instance=room)
+
+    if form.is_valid():
+        room = form.save(commit=False)
+        
+        room.save()
+        messages.info(request, 'You have successfully reserved room '+" "+f'{room.room_no}')
+        return redirect('reservations:reservations_list')
+    else:
+        
+        form = ReserveRoomForm(request.POST or None, instance=room)
+
+    context = {'form' : form}
+
+    return render(request, template_name, context)
+
+@login_required()
+def reserved_room_update(request, pk):
+    """ This is where we render the fucntion for deleting room """
+    template_name = 'room/reserved_room_form.html'
+    room = Room.objects.get(id=pk)
+    form = ReserveRoomForm(request.POST or None, instance=room)
+
+    if form.is_valid():
+        room = form.save(commit=False)
+        
+        room.save()
+        messages.info(request, 'You have successfully reserved room '+" "+f'{room.room_no}')
+        return redirect('reservations:list_of_check_out')
+    else:
+        
+        form = ReserveRoomForm(request.POST or None, instance=room)
+
+    context = {'form' : form}
+
+    return render(request, template_name, context)
+
+@login_required
+def reservation_room_list(request):
+    template_name = 'room/reserved_room_list.html'
+    room = Room.objects.all()
+
+    context = {'room' : room}
+
+    return render(request, template_name, context)
+
+@login_required
+def update_reservation_room_list(request):
+    template_name = 'room/reserved_room_list_update.html'
+    room = Room.objects.all()
+
+    context = {'room' : room}
+
+    return render(request, template_name, context)
+
 
 @login_required
 def delete_reservations(request, pk):
@@ -320,7 +381,7 @@ def list_of_check_in_or_out(request):
     context = {
         'check_in' : check_in
     }
-
+    
     return render(request, template_name, context)
 
 
@@ -351,7 +412,7 @@ def check_out(request, pk):
         check_in_or_out.check_in_date_time = check_out_date
         check_in_or_out.save()
         messages.success(request, "Transaction successfully completed")
-        return redirect('reservations:list_of_check_out')
+        return redirect('reservations:update_reservation_room_list')
     else:
         form = CheckInAndOutForm(request.POST or None, instance=customer)
     

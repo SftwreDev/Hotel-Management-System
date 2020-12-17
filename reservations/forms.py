@@ -16,7 +16,7 @@ class TimeInput(forms.DateInput):
     input_type = 'datetime-local'
 
 class ReservationForm(forms.ModelForm):
-    
+    room = forms.ModelChoiceField(Room.objects.filter(available = "False")) 
     class Meta :
         model = Reservations
         fields = ['name','address','email_address','contact','type_of_id','id_no','no_of_days','check_in_datetime', 'check_out_datetime', 'room']
@@ -48,14 +48,14 @@ class ReservationForm(forms.ModelForm):
         #     raise forms.ValidationError('Invalid input on check out time')
 
 class ReservationFormField(forms.ModelForm):
-   
+    
     class Meta :
         model = Reservations
         fields = ['active']
       
 
 class SelectRoomForm(forms.ModelForm):
-    room = forms.ModelChoiceField(Room.objects.filter(available = "True")) 
+    room = forms.ModelChoiceField(Room.objects.filter(available = "False")) 
     class Meta:
         model = Reservations
         fields = ['room']
@@ -64,6 +64,12 @@ class RoomForm(forms.ModelForm):
     class Meta:
         model = Room
         fields = '__all__'
+
+class ReserveRoomForm(forms.ModelForm):
+
+    class Meta:
+        model = Room
+        fields = ['available']
 
 class RoomFormField(forms.ModelForm):
     

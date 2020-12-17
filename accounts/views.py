@@ -70,10 +70,12 @@ def view_customer_account_list(request):
     template_name = 'accounts/customer_account_list.html'
 
     customer = User.objects.filter(is_customer = "True")
+    info = CustomerInfo.objects.all()
     print(customer)
-    context = { 'customer' : customer }
+    context = { 'customer' : customer, 'info' : info }
 
     return render(request, template_name, context)
+
 
 @login_required
 def delete_customer_account(request, pk):

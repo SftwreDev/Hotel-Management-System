@@ -38,14 +38,14 @@
         
                 <div class="card-body">
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                        <table class="table table-borderless table-hover table-sm text-center" style="font-size: 14px;">
+                        <table class="table table-borderless table-hover table-sm text-center" style="font-size: 12px;">
                             <thead>
                                 <tr class="table-primary">
                                     <th scope="col"></th>
                                     <th scope="col">Customer</th>
                                     <th scope="col">Check In Date & Time</th>
                                     <th scope="col">Check Out Date & Time</th>
-                                    <th scope="col">Hours to Stay</th>
+                                    <th scope="col">No of Days</th>
                                     <th scope="col">Type of Room</th>
                                     <th scope="col">Rates</th>
                                     <th scope="col">Date Created</th>
@@ -57,12 +57,12 @@
         
                                 <tr>
                                     <th scope="row">{{forloop.counter}}</th>
-                                    <td>{{list.customer}}</td>
+                                    <td>{{list.name}}</td>
                                     <td>{{list.check_in_datetime}}</td>
                                     <td>{{list.check_out_datetime}}</td>
-                                    <td>{{list.hrs_to_stay}} hrs</td>
+                                    <td>{{list.no_of_days}}</td>
                                     <td>{{list.room}}</td>
-                                    <td>{{list.room.rates}}</td>
+                                    <td>{{list.payment}}</td>
                                     <td class="text-muted">{{list.date_created}}</td>
                                     <td>
                                         <a href="{% url 'reservations:check_in_and_out' list.pk %}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>

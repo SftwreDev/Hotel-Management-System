@@ -1,23 +1,24 @@
 {% extends "base.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="col-md-12">
     <div class="row">
         <div class="col-lg-4">
             <button type="button" class="btn btn-block shadow" data-toggle="modal" data-target="#standardModal"  style="background-color: #4fc3f7 ;">
-                Standard Room
+                View Single Bed Room
             </button>
         </div>
 
         <div class="col-lg-4">
             <button type="button" class="btn btn-block shadow" data-toggle="modal" data-target="#deluxeModal"  style="background-color: #eeff41 ;">
-                Deluxe Room
+                View Double Bed Room
             </button>
         </div>
 
         <div class="col-lg-4">
             <button type="button" class="btn btn-block shadow" data-toggle="modal" data-target="#vipModal"  style="background-color: #ef5350 ;">
-                VIP Room
+                View Family Size Bed Room
             </button>
         </div>
     </div>
@@ -38,25 +39,22 @@
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Standard Room</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Single Bed Size Room</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body text-center">
-        <span><i class="fas fa-bed" aria-hidden="false"></i>&nbsp Single Size Bedroom</span>
-        <br>
-        <span><i class="fas fa-wifi" aria-hidden="false"></i>&nbsp Unlimited WiFi Access</span>
-        <br>
-        <span><i class="fas fa-shower" aria-hidden="false"></i>&nbsp Shower Room</span>
-        <br>
-        <span><i class="fas fa-utensils" aria-hidden="false"></i>&nbsp No breakfast or Dinner Included</span>
-        <br>
+        <div class="card" style="width: 100%;">
+            <img src="{% static 'images/room1.jpg' %}" class="card-img-top" alt="..." style="height: 40vh;">
+            <div class="card-body">
+                <p class="card-text">Single Bed Size Room</p>
+                ₱ 650.00
+            </div>
+        </div>
     </div>
     <hr>
-    <footer class=" text-center">
-        ₱ 1, 500.00
-    </footer>
+  
     </div>
 </div>
 </div>
@@ -66,25 +64,21 @@
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Deluxe Room</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Double Bed Size Room</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body text-center">
-        <span><i class="fas fa-bed" aria-hidden="false"></i>&nbsp Double Size Bedroom</span>
-        <br>
-        <span><i class="fas fa-wifi" aria-hidden="false"></i>&nbsp Unlimited WiFi Access</span>
-        <br>
-        <span><i class="fas fa-bath" aria-hidden="false"></i>&nbsp Shower and Bathub Room</span>
-        <br>
-        <span><i class="fas fa-utensils" aria-hidden="false"></i>&nbsp Breakfast Included</span>
-        <br>
+        <div class="card" style="width: 100%;">
+            <img src="{% static 'images/room2.jpg' %}" class="card-img-top" alt="..." style="height: 40vh;">
+            <div class="card-body">
+                <p class="card-text">Double Bed Size Room</p>
+                ₱ 850.00
+            </div>
+        </div>
     </div>
     <hr>
-    <footer class=" text-center">
-        ₱ 2, 500.00
-    </footer>
     </div>
 </div>
 </div>
@@ -94,25 +88,22 @@
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">VIP Room</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Family Bed Size Room</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body text-center">
-        <span><i class="fas fa-bed" aria-hidden="false"></i>&nbsp Queen Size Bedroom</span>
-        <br>
-        <span><i class="fas fa-wifi" aria-hidden="false"></i>&nbsp Unlimited WiFi Access</span>
-        <br>
-        <span><i class="fas fa-bath" aria-hidden="false"></i>&nbsp Shower and Bathub Room</span>
-        <br>
-        <span><i class="fas fa-utensils" aria-hidden="false"></i>&nbsp Breakfast and Dinner Included</span>
-        <br>
+        <div class="card" style="width: 100%;">
+            <img src="{% static 'images/room3.jpg' %}" class="card-img-top" alt="..." style="height: 40vh;">
+            <div class="card-body">
+                <p class="card-text">Family Bed Size Room</p>
+                ₱ 1,300.00
+            </div>
+        </div>
     </div>
     <hr>
-    <footer class=" text-center">
-        ₱ 3, 000.00
-    </footer>
+   
     </div>
 </div>
 </div>

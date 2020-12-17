@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include "_modal.html" %}
+{% if user.is_personel or user.is_administrator %}
+<!-- Button trigger modal -->
+
+{%endif%}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add new room</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form method="POST">
+        <div class="modal-body">
+            
+                {% csrf_token %}
+                {{form|crispy}}
+                
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    </div>
+</div>
+</div>
+<div class="card shadow mb-3 text-center">
+    <div class="card-body">
+        Choose the room you want to reserved then click "Reserved"
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        Single Bed Room | ₱ 650.000
+    </div>
+    <div class="card-body" style="font-size: 11px;">
+        <div class="row">
+            {% for standard_room in room %}
+            {% if standard_room.room_type == 'Single Bed Size Room' %}
+            {% include "../room/room_delete_modal.html" %}
+            {% if standard_room.available == True %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                
+                <a href="{% url 'reservations:reserved_room' standard_room.pk %}" class="card text-center shadow">
+                    
+                    <div class="card-header">
+                        
+                        Room {{ standard_room.room_no }}
+                        
+                    </div>
+                    <div class="card-body" style="background-color: #ef5350;">
+                        <h7 class="text-white">Not Available</h7>
+                    </div>
+                </a>
+            </div>
+            {% else %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                <a href="{% url 'reservations:reserved_room' standard_room.pk %}" class="card text-center shadow">
+                    <div class="card-header">
+                        
+                        Room {{ standard_room.room_no }}
+                        
+                    </div>
+                    <div class="card-body" style="background-color: #4fc3f7;">
+                        <h7 class="text-white">Available</h7>
+                    </div>
+                </a>
+            </div>
+            </div>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    
+    
+</div>
+
+<br>
+
+<div class="card">
+    <div class="card-header">
+        Double Bed Room | ₱ 850.000
+    </div>
+    <div class="card-body" style="font-size: 11px;">
+        <div class="row">
+    {% for deluxe in room %}
+    
+        {% if deluxe.room_type == 'Double Bed Size Room' %}
+        {% include "../room/room_delete_modal_deluxe.html" %}
+            {% if deluxe.available == True %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                <div class="card text-center shadow">
+                    <div class="card-header">
+                        
+                        Room {{ deluxe.room_no }}
+                        
+                    </div>
+                    <div class="card-body" style="background-color: #ef5350;">
+                        <h7 class="text-white">Not Available</h7>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                <a href="{% url 'reservations:reserved_room' deluxe.pk %}" class="card text-center shadow">
+                    <div class="card-header">
+                        
+                        Room {{ deluxe.room_no }}
+                        
+                    </div>
+                    <div class="card-body" style="background-color: #4fc3f7;">
+                        <h7 class="text-white">Available</h7>
+                    </div>
+                    
+                </a>
+            </div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="card">
+    <div class="card-header">
+        Family Size Room | ₱ 1,300.000
+    </div>
+    <div class="card-body" style="font-size: 11px;">
+        <div class="row">
+    {% for vip in room %}
+    
+        {% if vip.room_type == 'Family Bed Size Room' %}
+        {% include "../room/room_delete_modal_vip.html" %}
+            {% if vip.available == True %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                <div class="card text-center shadow">
+                    <div class="card-header">
+                        
+                        Room {{ vip.room_no }}
+                     
+                    </div>
+                    <div class="card-body" style="background-color: #ef5350;">
+                        <h7 class="text-white">Not Available</h7>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+                <a href="{% url 'reservations:reserved_room' vip.pk %}" class="card text-center shadow">
+                    <div class="card-header">
+                        
+                        Room {{ vip.room_no }}
+                        
+                    </div>
+                    
+                    <div class="card-body" style="background-color: #4fc3f7;">
+                        <h7 class="text-white">Available</h7>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block extrascripts  %}
+  
+<script>
+
+    $(".adminModal").each(function () {
+        $(this).modalForm({
+            formURL: $(this).data('form-url')
+        });
+    });
+
+    $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+            $(".alert").slideUp(500);
+        });
+</script>
+{% endblock extrascripts  %}

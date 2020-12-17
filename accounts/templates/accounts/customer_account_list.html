@@ -11,7 +11,7 @@
     display: block;
 }
 </style>
-<div class="col-md-12">
+<div class="col-lg-12">
     {% for message in messages %}
         <div class="alert alert-primary" role="alert">
             {{message}}
@@ -25,27 +25,41 @@
         </div>
 
         <div class="card-body">
+            
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <table class="table table-borderless table-hover table-sm text-center" style="font-size: 14px;">
+                <table class="table table-borderless table-hover table-sm text-center" style="font-size: 12px;">
                     <thead>
                         <tr class="table-primary">
                             <th scope="col"></th>
-                            <th scope="col">Username</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Address</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Date Registered</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Type of ID</th>
+                            <th scope="col">ID No</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Date Joined</th>
                             <th scope="col">Last Login</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
-                    {% for list in customer %}
+                    {% for list in info %}
                     <tbody>
 
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
-                            <td>{{list.username}}</td>
-                            <td>{{list.email}}</td>
-                            <td>{{list.date_joined}}</td>
+                            <td>{{list.l_name}}, {{list.f_name}}</td>
+                            <td>{{list.address}}</td>
+                            <td>{{list.email_add}}</td>
+                            <td>{{list.contact_no}}</td>
+                            <td>{{list.age}}</td>
+                            <td>{{list.type_of_id}}</td>
+                            <td>{{list.id_no}}</td>
+                            <td>{{list.customer.username}}</td>
+                            <td>{{list.customer.date_joined}}</td>
                             <td>{{user.last_login|default_if_none:"Not yet logging in"}}</td>
+              
                             <td>
                                 <a href="{% url 'accounts:update_customer_account' list.pk %}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">

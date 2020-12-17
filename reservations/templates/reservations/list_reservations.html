@@ -31,7 +31,7 @@
                             <th scope="col"></th>
                             <th scope="col">Check In Date & Time</th>
                             <th scope="col">Check Out Date & Time</th>
-                            <th scope="col">Hours to Stay</th>
+                            <th scope="col">No of Days</th>
                             <th scope="col">Room Type & No</th>
                             <th scope="col">Rates</th>
                             <th scope="col">Date Created</th>
@@ -45,12 +45,12 @@
                             <th scope="row">{{forloop.counter}}</th>
                             <td>{{list.check_in_datetime}}</td>
                             <td>{{list.check_out_datetime}}</td>
-                            <td>{{list.hrs_to_stay}} hrs</td>
+                            <td>{{list.no_of_days}}</td>
                             <td>{{list.room}}</td>
-                            <td>₱ {{list.room.rates}}</td>
+                            <td>₱ {{list.payment}}</td>
                             <td class="text-muted">{{list.date_created}}</td>
                             <td>
-                                <a href="{% url 'reservations:update_reservations' list.pk %}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
+                                <!-- <a href="{% url 'reservations:update_reservations' list.pk %}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a> -->
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">
                                     <i class="far fa-trash-alt"></i>
                                 </button>
